@@ -5,19 +5,19 @@ import './styles.css';
 
 import {
     CLOUD,
-    CLOUDY,
     SUN,
     RAIN,
     SNOW,
-    WINDY,
+    DRIZZLE,
+    THUNDER
 } from '../../../constants/weathers';
 const icons ={
     [CLOUD]: "cloud",
-    [CLOUDY]: "cloudy",
     [SUN]:"day-sunny",
     [RAIN]:"rain",
     [SNOW]:"snow",
-    [WINDY]:"windy",
+    [THUNDER]:"DAY-thunderstore",
+    [DRIZZLE]:"day-showers"
 };
 
 const getWeatherIcon = weatherState => {
@@ -36,7 +36,9 @@ const getWeatherIcon = weatherState => {
 const WeatherTemperature = ({temperature, weatherState}) =>{
     return (
         <div className="weatherTemperatureCont">
+            <div className="icon">
             { getWeatherIcon(weatherState)}
+            </div>
             <span className="temperature">{`${temperature}`}</span>
             <span className="temperatureType">{`C°`}</span>
         </div>

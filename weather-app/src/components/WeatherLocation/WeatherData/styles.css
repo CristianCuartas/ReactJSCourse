@@ -13,7 +13,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 350px;
+  width: 450px;
   border-radius: 25px;
 }
 .weatherTemperatureCont {
@@ -38,6 +38,5 @@
 }
 .extraInfoText {
   font-size: 20px;
-
   padding-left: 20px;
 }

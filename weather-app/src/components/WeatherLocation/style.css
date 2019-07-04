@@ -1,11 +1,11 @@
 .weatherLocation {
   width: 700px;
   padding: 15px;
-  font-family: "Rubik Mono One", sans-serif;
+  font-family: "Roboto", sans-serif;
   box-shadow: 10px 10px 40px -12px black;
 }
 .location {
-  width: 100px;
+  width: 350px;
   height: 35px;
   text-align: left;
   padding-left: 10px;
