@@ -5,6 +5,9 @@
   align-items: center;
   border-radius: 25px;
   margin: 15px;
+  widows: 100%;
+  padding: 5px;
+  box-sizing: border-box;
 }
 .weatherExtraInfoCont {
   background-color: cadetblue;

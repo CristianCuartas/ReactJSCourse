@@ -16,7 +16,7 @@ const icons ={
     [SUN]:"day-sunny",
     [RAIN]:"rain",
     [SNOW]:"snow",
-    [THUNDER]:"DAY-thunderstore",
+    [THUNDER]:"DAY-thunderstorm",
     [DRIZZLE]:"day-showers"
 };
 

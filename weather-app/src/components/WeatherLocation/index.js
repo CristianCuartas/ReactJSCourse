@@ -3,7 +3,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import PropTypes from 'prop-types';
 import Location from './Location';
 import WeatherData from './WeatherData';
-import getData from './../../services/trasnformWeather';
+import getData from '../../services/transformWeather';
 import './style.css';
 import getUrlByCity from '../../services/getUrlWeatherCity';
 

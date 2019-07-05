@@ -5,11 +5,11 @@ import {
     SNOW,
     DRIZZLE,
     THUNDER
-} from './../constants/weathers';
+} from '../constants/weathers';
 import convert from 'convert-units';
 
 const getTemp = kelvin =>{
-    return Number(convert(kelvin).from("K").to("C").toFixed(2));
+    return Number(convert(kelvin).from("K").to("C").toFixed(0));
 }
 
 const getWeatherState = weather =>{
