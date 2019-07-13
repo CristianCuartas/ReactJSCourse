@@ -1,78 +1,44 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import './styles.css'
-import ForecastItem from './ForecastItem';
-import {API_KEY, urlForecast} from './../credentials/crendentials';
-import transformForecast from './../services/transformForecast';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-class ForescastExtended extends Component{
-    constructor(props){
-        super(props);
-        this.state={
-            forescastData: null 
-        }
-    };
+import ForecastItem from './ForecastItem';
+import './styles.css';
 
-    componentDidMount(){
-        this.updateCity(this.props.city);
-    };
+const forecastItemDays = (forescastData) => {
+    return(
+        forescastData.map((day)=>{
+            return(<ForecastItem 
+                key={`${day.weekDay}${day.hour}`}
+                weekDay={day.weekDay} 
+                hour={day.hour} 
+                data={day.data}/>);
+        })
+    );
+};
 
-    componentWillReceiveProps(nextProps) {
-        if(nextProps.city !== this.props.city){
-            this.setState({forescastData: null});
-            this.updateCity(nextProps.city);
-        }
-    }
-    
+const renderProgress = () =>{
+    return(
+        <div style={{textAlign:"center"}}>
+            <CircularProgress size={100}/>
+        </div>
+    );
+};
 
-    updateCity = city =>{
-        fetch(`${urlForecast}?q=${city}&&appid=${API_KEY}`)
-        .then(res => res.json())
-        .then(data => {
-            const forescastData = transformForecast(data);
-            console.log(forescastData);
-            this.setState({forescastData});
-        });
-    };
-
-    forecastItemDays(forescastData){
-        return(
-            forescastData.map((day)=>{
-                return(<ForecastItem 
-                    key={`${day.weekDay}${day.hour}`}
-                    weekDay={day.weekDay} 
-                    hour={day.hour} 
-                    data={day.data}/>);
-            })
-        );
-    };
-
-    renderProgress = () =>{
-        return(
-            <div style={{textAlign:"center"}}>
-                <CircularProgress size={100}/>
-            </div>
-        );
-    };
-
-    render(){
-        const {city} = this.props;
-        const {forescastData} = this.state;
-        return(
-            <div>
-                <h2 className="forescast-title">
-                Pronóstico del clima para la ciudad de <br/>{city}
-                </h2>
-                {forescastData ? this.forecastItemDays(forescastData)
-                    : this.renderProgress()}
-            </div>
-        )
-    }
-}
+const ForescastExtended = ({city, forescastData}) => (
+    <div>
+        <h2 className="forescast-title">
+        Pronóstico del clima para la ciudad de <br/>{city}
+        </h2>
+        {forescastData ? 
+            forecastItemDays(forescastData) : 
+            renderProgress()}
+    </div>
+);
 
 ForescastExtended.propTypes={
-    city:PropTypes.string.isRequired,
+    city:          PropTypes.string.isRequired,
+    forescastData: PropTypes.array,
 }
 
 export default ForescastExtended;

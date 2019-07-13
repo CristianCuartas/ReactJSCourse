@@ -1,53 +1,27 @@
-import React, {Component} from 'react';
+import React from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import PropTypes from 'prop-types';
 import Location from './Location';
 import WeatherData from './WeatherData';
-import getData from '../../services/transformWeather';
+
 import './style.css';
-import getUrlByCity from '../../services/getUrlWeatherCity';
 
+const WeatherLocation = ({onWeatherLocation, city, data}) =>(
+    <div className="weatherLocation" onClick={onWeatherLocation}>
+        <Location city={city}/>
+            {data ? <WeatherData data={data}/> 
+            : <CircularProgress size={50}/>}
+    </div> 
+);
 
-class  WeatherLocation extends Component{
-    constructor(props){
-        super(props);
-        const {city} = props;
-        this.state={
-            city,
-            data: null,
-        };
-    };
-
-    componentDidMount() {
-        this.handleUpdateClick();
-    };
-
-    handleUpdateClick = () =>{
-        const api_weather = getUrlByCity(this.state.city);
-        fetch(api_weather)
-        .then(res => res.json())
-        .then(data =>{
-            const newWeather = getData(data);
-            this.setState({
-                data: newWeather
-            });
-        });
-    };
-
-    render(){
-        const {onWeatherLocation} = this.props
-        const {city, data} = this.state
-        return(
-            <div className="weatherLocation" onClick={onWeatherLocation}>
-                <Location city={city}/>
-                {data ? <WeatherData data={data}/> 
-                      : <CircularProgress size={50}/>}
-            </div> 
-        );
-    } 
-};
 WeatherLocation.propTypes={
     city: PropTypes.string.isRequired,
     onWeatherLocation: PropTypes.func.isRequired,
+    data: PropTypes.shape({
+        temperature: PropTypes.number.isRequired,
+        weatherState: PropTypes.string.isRequired,
+        humidity: PropTypes.number.isRequired,
+        wind: PropTypes.string.isRequired,
+    })
 }
 export default WeatherLocation;
