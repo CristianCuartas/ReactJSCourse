@@ -1,0 +1,24 @@
+{
+  "customers": [
+    {
+      "dni": "1",
+      "name": "Cristian David Cuartas Hernandez",
+      "age": 18
+    },
+    {
+      "dni": "2",
+      "name": "Rafael Ricardo Cuartas Hernandez",
+      "age": 20
+    },
+    {
+      "dni": "3",
+      "name": "Juan Fernando Cuartas Hernandez",
+      "age": 13
+    },
+    {
+      "dni": "4",
+      "name": "Laura Vanesa Cañaveral",
+      "age": 17
+    }
+  ]
+}

@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 import {Button} from 'reactstrap';
-import AppFrame from './AppFrame';
-import CustomersActions from './CustomersActions';
+import AppFrame from './../components/AppFrame';
+import CustomersActions from './../components/CustomersActions';
 
 class HomeContainer extends Component{
     handleOnClick = () =>{
