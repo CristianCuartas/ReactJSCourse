@@ -25,17 +25,31 @@ class CustomersContainer extends Component {
     }
     
     renderBody = customers =>(
-        <div>
+        <div style={{marginTop:"100px"}}>
             <CustomerList 
                 customers={customers} 
                 urlPath={'customers/'}>
             </CustomerList>
             <br/>
             <CustomersActions>
-                <Button className="btn" color='info' onClick={this.handleAddNew}> Nuevo cliente</Button>
-                <br/>
-                <br/>
-                <Button className="btn" outline color='info' onClick={this.handleHomePage}> Inicio</Button>
+            <div className="row">
+                <div className="col-md-6">
+                    <Button 
+                        className="btn" 
+                        color='info' 
+                        onClick={this.handleAddNew}>
+                        Nuevo cliente
+                        </Button>
+                    </div>
+                    <div className="col-md-6">
+                    <Button 
+                        className="btn" 
+                        outline color='info' 
+                        onClick={this.handleHomePage}> 
+                        Inicio
+                        </Button>
+                    </div>
+                </div>
             </CustomersActions>
         </div>
     );

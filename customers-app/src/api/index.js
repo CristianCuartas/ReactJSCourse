@@ -18,3 +18,16 @@ export const apiPOST = (url, obj) => () => fetch(`${url}`,{
     .catch(Error => {
     console.log(Error);
   });;
+
+
+  export const apiDelete = (url, id) => () => fetch(`${url}/${id}`,{
+    method: 'DELETE',
+    headers: new Headers({'Content-type': 'application/json'})
+}).then(res => res.json())
+  .then(r => {
+    if(r.Error){
+      console.log(Error);
+    }
+    return id;
+  });
+

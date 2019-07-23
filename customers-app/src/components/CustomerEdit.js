@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
 import { setPropsAsInitial } from '../helpers/setPropsAsInitial';
@@ -13,61 +13,84 @@ const isRequired = value =>(
     !value && "Este campo es requerido."
 );
 
-const MyField =({input, meta, type, label, name }) =>(
-    <div>
-        <label htmlFor={name}>{label} &nbsp;</label>
-        <input {...input} type={ !type ? "text" : type}/>
-        <br/>
-        {
-            meta.touched && meta.error && <span>{meta.error}</span>
-        }
-    </div>
-);
 const isNumber = value  => (
     isNaN(Number(value)) && "Campo de tipo numérico."
 );
 const toNumber= value => value && Number(value); 
 
-const CustomerEdit = ({name, dni, age, handleSubmit, submitting, onBack, pristine, submitSucceeded}) =>{
-    return(
+class CustomerEdit extends Component  {
+
+    componentDidMount() {
+        if(this.txt){
+            this.txt.focus();
+        }
+    }
+    
+
+    MyField =({input, meta, type, label, name, withFocus }) =>(
         <div>
-            <h2>Edición del cliente.</h2>
-            <form onSubmit={handleSubmit}>
-                <Field 
-                    label="Nombre:"
-                    name="name" 
-                    component={MyField} 
-                    type="text"
-                    //Validación por medio de funciones
-                    validate={isRequired}
-                    />
-                <Field 
-                    label="DNI:"
-                    name="dni" 
-                    component={MyField}  
-                    type="text"
-                    validate={[isRequired, isNumber]}
-                    />
-                <Field 
-                    label="Edad:"
-                    name="age" 
-                    component={MyField}  
-                    type="number"
-                    validate={[isRequired, isNumber]}
-                    parse={toNumber}
-                    />
-                    <CustomersActions>
-                        <Button className="btn btn-md" color={"warning"} type="submit" disabled={ pristine || submitting}>Aceptar</Button>
-                        &nbsp; &nbsp;
-                        <Button  type="button" className="btn btn-md"  disabled={submitting} outline color={"danger"} onClick={onBack}>Cancelar</Button>
-                    </CustomersActions>
-                    <Prompt 
-                        when={!pristine && !submitSucceeded}
-                        message="Se perderan los datos si continúa."
-                    ></Prompt>
-            </form>
+            <label htmlFor={name}>{label} &nbsp;</label>
+            <input {...input} 
+                type={ !type ? "text" : type}
+                ref={withFocus && (txt => this.txt = txt)}
+                />
+            <br/>
+            {
+                meta.touched && meta.error && <span>{meta.error}</span>
+            }
         </div>
     );
+
+    render(){
+        const { handleSubmit, submitting, onBack, pristine, submitSucceeded} = this.props;
+        return(
+            <div>
+                <h2>Edición del cliente.</h2>
+                <form onSubmit={handleSubmit}>
+                    <Field 
+                        withFocus = {true}
+                        label="Nombre:"
+                        name="name" 
+                        component={this.MyField} 
+                        type="text"
+                        //Validación por medio de funciones
+                        validate={isRequired}
+                        />
+                    <Field 
+                        label="DNI:"
+                        name="dni" 
+                        component={this.MyField}  
+                        type="text"
+                        validate={[isRequired, isNumber]}
+                        />
+                    <Field 
+                        label="Edad:"
+                        name="age" 
+                        component={this.MyField}  
+                        type="number"
+                        validate={[isRequired, isNumber]}
+                        parse={toNumber}
+                        />
+                    <Field 
+                        label="ESTADO:"
+                        name="estado" 
+                        component={this.MyField}  
+                        type="checkbox"
+                        // validate={[isRequired]}
+                        />
+                        <CustomersActions>
+                            <Button className="btn btn-md" color={"warning"} type="submit" disabled={ pristine || submitting}>Aceptar</Button>
+                            &nbsp; &nbsp;
+                            <Button  type="button" className="btn btn-md"  disabled={submitting} outline color={"danger"} onClick={onBack}>Cancelar</Button>
+                        </CustomersActions>
+                        <Prompt 
+                            when={!pristine && !submitSucceeded}
+                            message="Se perderan los datos si continúa."
+                        ></Prompt>
+                </form>
+            </div>
+        );
+    }
 };
 
 CustomerEdit.propTypes ={

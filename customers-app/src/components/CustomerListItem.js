@@ -4,18 +4,20 @@ import {Link} from 'react-router-dom'
 
 const CustomerListItem = ({name, editAction, deleteAction, urlPath, dni}) =>{
     return(
-        <div>
             <div className="customer-list-item">
                 <div className="row">
                     <div className="col">
                         <Link to={`${urlPath}${dni}`}>{name}</Link> &nbsp;
+                        </div>
+                        <div className="col">
                         <Link to={`${urlPath}${dni}/edit`}>{editAction}</Link> &nbsp;
+                        </div>
+                        <div className="col">
                         <Link to={`${urlPath}${dni}/del`}>{deleteAction}</Link>
                     </div>
                 </div>
+                <hr/>
             </div>
-            <hr/>
-        </div>
     );
 };
 

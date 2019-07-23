@@ -1,52 +1,27 @@
 {
   "customers": [
     {
-      "id": "1",
-      "dni": "1",
-      "name": "Cristian David ",
-      "age": 19
-    },
-    {
-      "id": "2",
+      "name": "Cliente 2",
       "dni": "2",
-      "name": "Rafael Ricardo ",
-      "age": 20
+      "age": 18,
+      "id": 2,
+      "estado": true,
+      "isDeleteAllow": false
     },
     {
-      "id": "3",
+      "name": "Anything",
       "dni": "3",
-      "name": "Juan Fernando ",
-      "age": 13
-    },
-    {
-      "id": "4",
-      "dni": "4",
-      "name": "Laura Vanesa",
-      "age": 17
-    },
-    {
-      "name": "Sofía ",
-      "dni": "100",
-      "age": 16,
-      "id": "o4Yq16A"
-    },
-    {
-      "name": "Nombre digno ",
-      "dni": "2321",
-      "age": 321321,
-      "id": "HopMoZL"
-    },
-    {
-      "name": "Nuevo Cliente",
-      "dni": "56",
-      "age": 89,
-      "id": "dOWXOQ7"
-    },
-    {
-      "name": "Nombre digno 2",
-      "dni": "8",
       "age": 20,
-      "id": "TviM9Ql"
+      "id": 3,
+      "estado": true
+    },
+    {
+      "name": "Cristian David ",
+      "dni": "11",
+      "age": 18,
+      "id": 4,
+      "estado": true,
+      "isDeleteAllow": false
     }
   ]
 }

@@ -4,7 +4,6 @@ import CustomerListItem from './CustomerListItem';
 
 const CustomerList = ({customers,urlPath}) =>{
     return(
-        <div>
             <div className="customer-list">
             {customers.map(item => 
                 <CustomerListItem
@@ -17,7 +16,6 @@ const CustomerList = ({customers,urlPath}) =>{
                 />
             )}
             </div>
-        </div>
     );
 };
 

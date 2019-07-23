@@ -8,6 +8,7 @@ import CustomerEdit from './../components/CustomerEdit';
 import CustomerData from './../components/CustomerData';
 import {fetchCustomers} from './../actions/fetchCustomers';
 import {updateCustomer} from './../actions/updateCustomer';
+import {deleteCustomer} from './../actions/deleteCustomer';
 
 class CustomerContainer extends Component {
 //<div>
@@ -18,11 +19,11 @@ componentDidMount() {
     if(!this.props.customer){
         this.props.fetchCustomers();
     }
-    [0,1,2,3,4].reduce(function(valorAnterior, valorActual, indice, vector){
-        const suma = valorAnterior + valorActual;
-        console.log(`Valor anterior: ${valorAnterior}, Valor Actual: ${valorActual}, Indice: ${indice}`);
-        return suma;
-    }, 10)
+    // [0,1,2,3,4].reduce(function(valorAnterior, valorActual, indice, vector){
+    //     const suma = valorAnterior + valorActual;
+    //     console.log(`Valor anterior: ${valorAnterior}, Valor Actual: ${valorActual}, Indice: ${indice}`);
+    //     return suma;
+    // }, 10)
 }
 
 handleSubmit = values =>{
@@ -36,17 +37,31 @@ handleOnBack = () =>{
 handleOnSubmitSuccess = () =>{
     this.props.history.goBack();
 }
+handleOnDalete = (id) =>{
+    this.props.deleteCustomer(id)
+    .then(res => {this.props.history.goBack()});
+}
+
+    renderCustomerControl = (isEdit, isDelete) =>{
+        if(this.props.customer){
+            const CustomerControl = isEdit ?  CustomerEdit : CustomerData;
+            return <CustomerControl 
+                        {...this.props.customer} 
+                        onSubmit={this.handleSubmit}
+                        onSubmitSuccess={this.handleOnSubmitSuccess}
+                        onBack={this.handleOnBack}
+                        isDeleteAllow={!!isDelete}
+                        onDelete={this.handleOnDalete}
+                        />
+        }
+        return null;
+    }
     renderBody = () =>(
         <Route path="/customers/:dni/edit" children={
-            ({match}) => {
-                const CustomerControl = match ?  CustomerEdit : CustomerData;
-                return <CustomerControl 
-                            {...this.props.customer} 
-                            onSubmit={this.handleSubmit}
-                            onSubmitSuccess={this.handleOnSubmitSuccess}
-                            onBack={this.handleOnBack}
-                            />
-            } 
+            ({match: isEdit}) => (
+                <Route path="/customers/:dni/del" children={
+                    ({match: isDelete}) =>(this.renderCustomerControl(isEdit, isDelete))
+                } /> )
         } />
     )
     render() {
@@ -67,6 +82,7 @@ CustomerContainer.propTypes = {
     customer: PropTypes.object.isRequired,
     fetchCustomers: PropTypes.func.isRequired,
     updateCustomer: PropTypes.func.isRequired,
+    deleteCustomer: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state, props) =>({
     customer: getCustomerByDni(state, props)
@@ -74,5 +90,6 @@ const mapStateToProps = (state, props) =>({
 
 export default withRouter(connect(mapStateToProps, {
     fetchCustomers,
-    updateCustomer
+    updateCustomer,
+    deleteCustomer
 })(CustomerContainer));
